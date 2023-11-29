@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,6 +58,47 @@ public class UserServiceTest {
                 service.findById(2));
     }
 
-    // TODO: Implement test cases for getAllUsers
+    @Test
+    @DisplayName("#getAllUsers > When there are users > Return a list of users")
+    void getAllUsersWhenThereAreUsersReturnAListOfUsers() {
+        List<User> users = Arrays.asList(
+                User.builder().id(1).name("Fellipe").username("felliperey").build(),
+                User.builder().id(2).name("Joao").username("joaosilva").build(),
+                User.builder().id(3).name("Maria").username("mariasilva").build(),
+                User.builder().id(4).name("Jose").username("joseoliveira").build(),
+                User.builder().id(5).name("Ana").username("anapaula").build()
+        );
+        when(repository.findAll()).thenReturn(users);
+        List<User> response = service.getAllUsers();
 
+        assertAll(
+                () -> assertNotNull(response),
+                () -> assertEquals(5, response.size()),
+                () -> assertEquals("Fellipe", response.get(0).getName()),
+                () -> assertEquals("Joao", response.get(1).getName()),
+                () -> assertEquals("Maria", response.get(2).getName()),
+                () -> assertEquals("Jose", response.get(3).getName()),
+                () -> assertEquals("Ana", response.get(4).getName())
+        );
+    }
+
+    @Test
+    @DisplayName("#getAllUsers > When there are no users > Return an empty list")
+    void getAllUsersWhenThereAreNoUsersReturnAnEmptyList() {
+        when(repository.findAll()).thenReturn(List.of());
+        List<User> response = service.getAllUsers();
+
+        assertAll(
+                () -> assertNotNull(response),
+                () -> assertEquals(0, response.size())
+        );
+    }
+
+    @Test
+    @DisplayName("#getAllUsers > When the list is null > throw an exception")
+    void getAllUsersWhenTheListIsNullThrowAnException() {
+        when(repository.findAll()).thenReturn(null);
+        assertThrows(IllegalArgumentException.class, () ->
+                service.getAllUsers());
+    }
 }

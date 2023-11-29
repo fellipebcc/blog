@@ -18,7 +18,11 @@ public class UserService {
     private final UserRepository repository;
 
     public List<User> getAllUsers() {
-        return repository.findAll();
+        List<User> users = repository.findAll();
+        if (users == null){
+            throw new IllegalArgumentException("User List cannot be null");
+        }
+        return users;
     }
 
     public User findById(Integer id) {

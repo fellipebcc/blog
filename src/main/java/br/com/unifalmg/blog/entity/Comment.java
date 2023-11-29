@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Setter
 @Getter
@@ -13,25 +12,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(schema = "db", name = "user")
-public class User implements Serializable {
-
+public class Comment implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    private String username;
-
     private String email;
 
-    private String phone;
+    private String body;
 
-    private String website;
-
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private User user;
 }
