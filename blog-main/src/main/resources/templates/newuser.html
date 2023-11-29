@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a new user</title>
+</head>
+<body>
+    <header>
+        <h1>New user</h1>
+    </header>
+
+    <main>
+        <form th:action="@{/user}" th:object="${user}" method="post">
+            <label>
+                Name:
+                <input type="text" id="name" th:field="*{name}"/>
+            </label>
+            <br/>
+            <label>
+                Username:
+                <input type="text" id="username" th:field="*{username}"/>
+            </label>
+            <br/>
+            <label>
+                Email:
+                <input type="text" id="email" th:field="*{email}"/>
+            </label>
+            <br/>
+            <label>
+                Phone:
+                <input type="text" id="phone" th:field="*{phone}"/>
+            </label>
+            <br/>
+            <label>
+                Website:
+                <input type="text" id="website" th:field="*{website}"/>
+            </label>
+            <br/>
+            <button>Cadastrar</button>
+        </form>
+    </main>
+</body>
+</html>

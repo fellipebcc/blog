@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog - Users</title>
+</head>
+<body>
+    <header>
+        <h1>All users in the Blog</h1>
+    </header>
+    <main>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td><span th:text="${user.id}"></span></td>
+                <td><span th:text="${user.name}"></span></td>
+                <td><span th:text="${user.username}"></span></td>
+                <td><span th:text="${user.email}"></span></td>
+                <td><span th:text="${user.phone}"></span></td>
+                <td><span th:text="${user.website}"></span></td>
+            </tr>
+        </table>
+    </main>
+</body>
+</html>
