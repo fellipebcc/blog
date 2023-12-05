@@ -39,4 +39,26 @@ public class UserService {
         return repository.save(user);
     }
 
+    public User editOrAddUser(User user){
+        if (Objects.isNull(user) || Objects.isNull(user.getName())
+                || Objects.isNull(user.getUsername()) || Objects.isNull(user.getEmail())) {
+            throw new InvalidUserException();
+        }
+        Optional<User> existingUserOptional = repository.findById(user.getId());
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+            existingUser.setName(user.getName());
+            existingUser.setUsername(user.getUsername());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setPhone(user.getPhone());
+            existingUser.setWebsite(user.getWebsite());
+
+            return repository.save(existingUser);
+        }
+        else{
+            return repository.save(user);
+        }
+
+    }
+
 }

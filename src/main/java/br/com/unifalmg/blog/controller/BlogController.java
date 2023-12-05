@@ -46,6 +46,20 @@ public class BlogController {
         return "redirect:/user/" + addedUser.getId();
     }
 
+    @GetMapping("/editOrAddUser")
+    public String editUser(User user) {
+        return "editOrAddUser";
+    }
+
+    @PostMapping("/editOrAddUser")
+    public String newEditUser(@ModelAttribute("user") User user) {
+        // TODO: Add the new user
+        // service.add || service.save
+        log.info("Entrou no cadastro de usuário");
+        User addedUser = service.editOrAddUser(user);
+        return "redirect:/user/" + addedUser.getId();
+    }
+
     @GetMapping("/user/{id}")
     public String showUser(@PathVariable("id") Integer id,
                            Model model) {
